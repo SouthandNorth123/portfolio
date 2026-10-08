@@ -2055,7 +2055,22 @@
         requestAnimationFrame(draw);
       }
       requestAnimationFrame(draw);
-      video.play().catch(function () {});
+      // Ensure the muted *property* is set (the attribute alone is ignored by
+      // some browsers when play() is called programmatically), so autoplay is
+      // allowed. Then play; if a strict autoplay policy still blocks it, start
+      // the greeting on the first user interaction (click / scroll / touch).
+      video.muted = true;
+      var playPromise = video.play();
+      if (playPromise && playPromise.catch) {
+        playPromise.catch(function () {
+          function startOnInteract() {
+            video.play().catch(function () {});
+          }
+          ['click', 'touchstart', 'scroll', 'keydown'].forEach(function (evt) {
+            window.addEventListener(evt, startOnInteract, { once: true, passive: true });
+          });
+        });
+      }
     })();
   </script>
 

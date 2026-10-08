@@ -248,12 +248,13 @@
 
     /* hidden source video for chroma-key rendering */
     .hero-avatar-src {
+      /* Off-screen but real-sized so Safari treats it as a visible, autoplayable
+         inline video (a 2px/opacity:0 element gets its autoplay blocked). */
       position: absolute;
-      left: -20px;
-      top: -20px;
-      width: 2px;
-      height: 2px;
-      opacity: 0;
+      left: -10000px;
+      top: 0;
+      width: 480px;
+      height: auto;
       pointer-events: none;
       z-index: -1;
     }
@@ -2057,20 +2058,26 @@
       requestAnimationFrame(draw);
       // Ensure the muted *property* is set (the attribute alone is ignored by
       // some browsers when play() is called programmatically), so autoplay is
-      // allowed. Then play; if a strict autoplay policy still blocks it, start
-      // the greeting on the first user interaction (click / scroll / touch).
+      // allowed. Then play through several triggers: immediately, on load,
+      // after a short delay, and on the first user interaction — so the greeting
+      // starts even under stricter autoplay policies (e.g. Safari).
       video.muted = true;
-      var playPromise = video.play();
-      if (playPromise && playPromise.catch) {
-        playPromise.catch(function () {
-          function startOnInteract() {
-            video.play().catch(function () {});
-          }
-          ['click', 'touchstart', 'scroll', 'keydown'].forEach(function (evt) {
-            window.addEventListener(evt, startOnInteract, { once: true, passive: true });
-          });
-        });
+      video.defaultMuted = true;
+      video.setAttribute('muted', '');
+      function tryPlay() {
+        video.muted = true;
+        var p = video.play();
+        if (p && p.catch) p.catch(function () {});
       }
+      tryPlay();
+      ['canplay', 'loadeddata', 'loadedmetadata'].forEach(function (ev) {
+        video.addEventListener(ev, tryPlay, { once: true });
+      });
+      setTimeout(tryPlay, 400);
+      function startOnInteract() { tryPlay(); }
+      ['click', 'touchstart', 'scroll', 'keydown'].forEach(function (evt) {
+        window.addEventListener(evt, startOnInteract, { once: true, passive: true });
+      });
     })();
   </script>
 

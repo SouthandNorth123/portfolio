@@ -1,0 +1,2798 @@
+<!DOCTYPE html>
+<html lang="en" data-page-node-id="hH7jfEVkyvEuy9TfzN3ZfD" data-dm-ref="1" style=""><head data-page-node-id="aWVERqAKD8iH6lzKIhFcQL">
+  <meta charset="UTF-8" data-page-node-id="M2FXJd0YnBdkfXGd59vLev">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="OKgB5V0d8mdzZFRNq0XZZy">
+  <title>YALI LIU - Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" data-page-node-id="mHRZEkzsTklpLbecPjQDa0">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" data-page-node-id="MldI7b1WGyonIy2GhSXzXJ">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&amp;family=Anton&amp;family=Noto+Sans+SC:wght@400;700;900&amp;family=ZCOOL+KuaiLe&amp;display=swap" rel="stylesheet" data-page-node-id="9DZBOil2ZoQc6zqG9jdefT">
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans SC', sans-serif;
+      background: #1a1a2e;
+      color: #1a1a2e;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ================================================================
+       DESIGN TOKENS — 整站设计语言单一事实源
+       调色板 / 描边 / 圆角 / 阴影 全部从此处取值。
+       规则：
+       · 容器卡片（贴纸语言）= 3.5px 墨边 + 12–22px 圆角 + 硬偏移投影
+       · 按钮/交互件        = 2.5px 墨边 + 999px 胶囊 + 4px 硬偏移投影
+       · 小徽章/图片框      = 1.5px 细边
+       · 浮层（弹窗/灯箱）  = 柔和大阴影（悬浮高度感，不用硬投影）
+       ================================================================ */
+    :root {
+      /* ---- 调色板 ---- */
+      --ink: #1a1a2e;                       /* 墨 */
+      --ink-soft: rgba(26, 26, 46, 0.82);   /* 正文 */
+      --muted: #8a8a9a;                     /* 次要文字（唯一灰阶） */
+      --brand: #7B6BA0;                     /* 品牌紫（导航圆标/副标题） */
+      --violet: #5B2EE0;                    /* 紫卡 */
+      --teal: #2DD4BF;                      /* CTA / 主按钮 */
+      --lavender: #C8CBE0;                  /* 首屏 & 联系页底色 */
+      --cream: #FFF8F0;                     /* 作品页 & 弹层底色 */
+      /* ---- 描边粗细 ---- */
+      --line-card: 3.5px;                   /* 容器卡片 */
+      --line-btn: 2.5px;                    /* 按钮 / 交互件 */
+      --line-chip: 1.5px;                   /* 小徽章 / 图片框 */
+      /* ---- 圆角 ---- */
+      --r-card: 12px;                       /* 小卡片 */
+      --r-panel: 16px;                      /* 中型面板 */
+      --r-sheet: 22px;                      /* 大弹层 */
+      --r-tag: 6px;                         /* 标签 chip */
+      --r-pill: 999px;                      /* 胶囊按钮 */
+      /* ---- 阴影（贴纸语言：硬偏移） ---- */
+      --sh-card: 6px 6px 0 rgba(26, 26, 46, 0.14);
+      --sh-card-hover: 12px 16px 0 rgba(26, 26, 46, 0.22);
+      --sh-panel: 12px 12px 0 rgba(26, 26, 46, 0.18);
+      --sh-btn: 4px 4px 0 rgba(26, 26, 46, 0.28);
+      --sh-btn-hover: 6px 6px 0 rgba(26, 26, 46, 0.34);
+      /* ---- 阴影（浮层语言：柔和） ---- */
+      --sh-float: 0 40px 90px rgba(26, 26, 46, 0.4);
+    }
+
+    /* ===== DOT PATTERN OVERLAY (hero only) ===== */
+    .dot-pattern {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.18) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      background-color: #C8CBE0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    /* ===== NAVIGATION BAR ===== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      transition: background 0.3s ease;
+    }
+
+    .nav.scrolled {
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-circle {
+      width: 31px;
+      height: 31px;
+      border-radius: 50%;
+      background-color: #7B6BA0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .brand-circle span {
+      font-family: Georgia, 'Noto Serif SC', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #ffffff;
+    }
+
+    .nav.scrolled .brand-name { color: #7B6BA0; }
+    .nav.scrolled .nav-link { color: #1a1a2e; opacity: 0.82; }
+    .nav.scrolled .nav-link:hover { opacity: 1; }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+
+    .nav-link {
+      font-size: 13px;
+      color: #ffffff;
+      opacity: 0.72;
+      text-decoration: none;
+      transition: opacity 0.25s ease;
+      cursor: pointer;
+    }
+
+    .nav-link:hover {
+      opacity: 1;
+    }
+
+    .nav-cta {
+      font-size: 13px;
+      font-weight: 700;
+      color: #000000;
+      background-color: var(--teal);
+      border: none;
+      border-radius: var(--r-pill);   /* pill — was 4px, unify button language */
+      padding: 10px 22px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(45, 212, 191, 0.35);
+    }
+
+    /* ===== HERO CONTENT LAYOUT ===== */
+    .hero-body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 0 60px;
+    }
+
+    /* ===== GIANT TITLE ===== */
+    .hero-title-wrap {
+      position: absolute;
+      left: 50%;
+      top: 19.2%;   /* was 16% — shifted down by ~1/5 of the previous offset */
+      transform: translate(-50%, -50%);
+      /* width:max-content — otherwise `left:50%` only offers half the page and
+         "YALI LIU" wraps to two lines on ~1378px-and-under viewports */
+      width: max-content;
+      max-width: 92vw;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .hero-title {
+      font-family: 'Anton', 'Impact', sans-serif;
+      font-size: clamp(64px, 14vw, 180px);
+      font-weight: 400;
+      text-transform: uppercase;
+      color: #ffffff;
+      letter-spacing: 0.12em;
+      line-height: 1;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: titleReveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: 0.15s;
+      user-select: none;
+      -webkit-text-stroke: 0.5px rgba(255,255,255,0.15);
+    }
+
+    @keyframes titleReveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===== 3D AVATAR (center, in front of title) ===== */
+    .hero-avatar {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      height: 92vh;          /* 1.25× — from 73.5vh */
+      height: 92dvh;
+      width: auto;
+      max-width: 92vw;
+      object-fit: contain;
+      object-position: bottom center;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* hidden source video for chroma-key rendering */
+    .hero-avatar-src {
+      position: absolute;
+      left: -20px;
+      top: -20px;
+      width: 2px;
+      height: 2px;
+      opacity: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* ===== PROFILE CARD (right side) ===== */
+    .profile-card {
+      position: absolute;
+      right: max(60px, 8vw);
+      top: 75%;
+      transform: translateY(-50%);
+      z-index: 5;
+    }
+
+    .profile-info {
+      position: relative;
+      display: flex;
+      flex-direction: column;          /* tagline stacks above the Name/Phone/Address rows */
+      align-items: flex-start;
+      padding-left: 22px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans SC', sans-serif;  /* same font as 探索作品 */
+    }
+
+    .profile-rows {
+      display: flex;
+      flex-direction: column;          /* three rows stacked vertically */
+      align-items: flex-start;         /* flush left against the vertical line */
+      gap: 14px;
+    }
+
+    /* One continuous white vertical line on the LEFT; the three entries sit to its right */
+    .profile-info::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 2px;
+      background-color: #ffffff;
+      transform: scaleY(0);
+      transform-origin: top center;
+      animation: lineExpand 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: 0.7s;
+    }
+
+    @keyframes lineExpand {
+      to {
+        transform: scaleY(1);
+      }
+    }
+
+    .profile-row {
+      font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans SC', sans-serif;  /* match 探索作品 button */
+      font-size: 14px;
+      color: #ffffff;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: rowFadeIn 0.5s ease forwards;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 10px;
+      white-space: nowrap;
+    }
+
+    .profile-row:nth-child(1) { animation-delay: 1.15s; }
+    .profile-row:nth-child(2) { animation-delay: 1.32s; }
+    .profile-row:nth-child(3) { animation-delay: 1.49s; }
+
+    @keyframes rowFadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .profile-label {
+      opacity: 1;
+      color: #ffffff;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .profile-value {
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    /* ===== HERO TAGLINE (left side) ===== */
+    /* Mirrors .profile-card on the right: same horizontal anchor and vertical
+       center. Lives at hero level (not inside .profile-info) so it sits on the
+       opposite side of the page. */
+    .hero-tagline {
+      position: absolute;
+      left: max(60px, 8vw);
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;               /* below .hero-avatar (z:3) so the avatar draws over the text where they overlap */
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans SC', sans-serif;
+      font-size: 28px;            /* 2× the previous 14px */
+      font-weight: 500;
+      line-height: 1.4;
+      letter-spacing: 0.005em;
+      color: rgba(255, 255, 255, 0.94);
+      max-width: 380px;
+      opacity: 0;
+      animation: taglineFadeIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: 0.9s;
+    }
+
+    @keyframes taglineFadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* ===== CTA CAPSULE BUTTON (bottom-left) ===== */
+    /* Anchor matches .contact-badge exactly so the three capsule buttons on
+       screens 1 / 2 / 3 sit in the same corner at the same distance. */
+    .hero-cta {
+      position: absolute;
+      bottom: clamp(18px, 2.6vh, 28px);
+      left: clamp(18px, 2.6vw, 30px);
+      z-index: 10;
+    }
+
+    .explore-btn {
+      font-size: 14px;
+      font-weight: 700;               /* was 600 — match the other pill buttons */
+      color: #ffffff;
+      /* Opaque hero-coloured fill (hero bg is flat #C8CBE0): keeps the pill
+         looking "transparent" while letting the hard offset shadow sit BEHIND
+         it instead of showing through the fill. */
+      background: #C8CBE0;
+      border: var(--line-btn) solid rgba(255,255,255,0.55);
+      border-radius: var(--r-pill);
+      padding: 12px 28px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: var(--sh-btn);
+      transition: all 0.28s ease;
+      opacity: 0;
+      animation: ctaFadeIn 0.5s ease forwards;
+      animation-delay: 1.8s;
+    }
+
+    .explore-btn:hover {
+      background: #d4d7e9;
+      border-color: rgba(255,255,255,0.85);
+      box-shadow: var(--sh-btn-hover);
+      transform: translateY(-2px);
+    }
+
+    .explore-btn .arrow {
+      display: inline-block;
+      transition: transform 0.28s ease;
+    }
+
+    .explore-btn:hover .arrow {
+      transform: translateY(3px);
+    }
+
+    @keyframes ctaFadeIn {
+      to { opacity: 1; }
+    }
+
+    /* ================================================================
+       SECOND SCREEN — WORKS SHOWCASE (covers hero on scroll/click)
+       ================================================================ */
+
+    .works-section {
+      position: relative;
+      z-index: 50;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: #FFF8F0;
+      margin-top: -1px;
+      padding: clamp(48px, 7vh, 80px) 48px clamp(24px, 4vh, 44px);
+      overflow: hidden;
+    }
+
+    /* ---- Section Header ---- */
+    .works-header {
+      text-align: center;
+      margin-bottom: clamp(20px, 3vh, 40px);
+      position: relative;
+      z-index: 10;
+    }
+
+    .works-subtitle {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(11px, 1.4vw, 15px);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #7B6BA0;
+      margin-bottom: 16px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: worksHeaderIn 0.7s ease forwards;
+      animation-delay: 0.1s;
+    }
+
+    .works-title {
+      font-family: 'ZCOOL KuaiLe', 'Noto Sans SC', sans-serif;
+      font-size: clamp(36px, 7vw, 72px);
+      font-weight: 900;
+      color: #1a1a2e;
+      line-height: 1.15;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: worksHeaderIn 0.7s ease forwards;
+      animation-delay: 0.25s;
+    }
+
+    @keyframes worksHeaderIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ---- Cards Arc Layout (loose arc around central character) ---- */
+    .works-grid {
+      position: relative;
+      width: 100%;
+      max-width: 1300px;
+      flex: 1;
+      min-height: 0;
+      margin: 0 auto;
+      z-index: 10;
+    }
+
+    /* ---- Individual Card ---- */
+    .work-card {
+      position: absolute;
+      width: 220px;          /* +28px so the 1:1.48 ratio reads less "long"; min-height
+                                equalises heights — titles wrap to 1–3 lines so the natural
+                                heights differ by up to 35px and the tallest card reads as
+                                "a chunk longer" than its neighbours */
+      min-height: 266px;     /* 实测自然内容高度：桌面 245/245/266/259px，≤1200 断点 251/251/273/263px。
+                                取 266 —— 桌面四张刚好全部落在这个值（极差 0），窄窗口最多差 7px，
+                                同时整体比原来的 284 矮 18px（-6.3%），「差不多一致」达成 */
+      background: #ffffff;
+      border: var(--line-card) solid var(--ink);
+      border-radius: var(--r-card);
+      /* sticker language: resting hard-offset shadow, same family as
+         .contact-card / .contact-blob / .pm-cover (was missing entirely) */
+      box-shadow: var(--sh-card);
+      padding: 16px;
+      cursor: pointer;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  box-shadow 0.4s ease,
+                  z-index 0s;
+      overflow: hidden;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      /* default: no tilt until positioned by JS or explicit class */
+    }
+
+    .work-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(232,93,117,0.06), rgba(45,212,191,0.06));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .work-card:hover::before { opacity: 1; }
+
+    /* Arc positions — even, tight gaps (~26px) around the centered character */
+    /* Card 1 — far left */
+    .work-card:nth-child(1) {
+      left: 7%;
+      top: 2%;
+      transform: rotate(-4deg);
+    }
+    /* Card 2 — mid-left */
+    .work-card:nth-child(2) {
+      left: 29%;
+      top: 0%;
+      transform: rotate(-1.5deg);
+    }
+    /* Card 3 — mid-right */
+    .work-card:nth-child(3) {
+      right: 29%;
+      top: 0%;
+      transform: rotate(1.5deg);
+    }
+    /* Card 4 — far right */
+    .work-card:nth-child(4) {
+      right: 7%;
+      top: 2%;
+      transform: rotate(4deg);
+    }
+
+    .work-card:hover {
+      transform: rotate(0deg) translateY(-12px) scale(1.05) !important;
+      box-shadow: var(--sh-card-hover);   /* hard offset — was a soft blur */
+      z-index: 25;
+    }
+
+    .card-head {
+      display: flex;
+      flex-direction: column;   /* tag on row 1, title on row 2 — same as sibling cards */
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .card-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: var(--r-tag);   /* was 4px — match .pm-tag */
+      align-self: flex-start;
+      flex-shrink: 0;
+    }
+
+    .work-card:nth-child(1) .card-tag { background: #FFE4EC; color: #D6336C; }
+    .work-card:nth-child(2) .card-tag { background: #E8F0FE; color: #1A73E8; }
+    .work-card:nth-child(3) .card-tag { background: #FEF3E2; color: #E65100; }
+    .work-card:nth-child(4) .card-tag { background: #E8F5E9; color: #2E7D32; }
+
+    .card-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans SC', sans-serif;
+      font-size: 16px;
+      font-weight: 900;
+      color: #1a1a2e;
+      line-height: 1.3;
+      margin: 0;
+      min-width: 0;
+      display: none;            /* EN: Chinese 《》 names removed — only English caption shows */
+    }
+
+    .card-title-en {
+      font-family: Georgia, 'Noto Serif SC', serif;
+      font-style: italic;       /* italic kept (originally requested); now also bold + larger */
+      font-size: 17px;
+      font-weight: 800;
+      color: #1a1a2e;
+      line-height: 1.25;
+      margin: 0;
+      letter-spacing: 0.005em;
+    }
+
+    /* Card 4 has the longest title (30 chars). At 17px it broke into three
+       lines and pushed that card taller than its neighbours, so it drops to
+       15px here — two lines, same card height as the rest. */
+    .work-card:nth-child(4) .card-title-en {
+      font-size: 14px;
+    }
+
+    .card-preview {
+      aspect-ratio: 16 / 10;
+      width: 100%;
+      background: #f5f5f5;
+      border-radius: 8px;
+      border: 2px dashed #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: #aaa;
+      font-weight: 500;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Image-backed preview (real key visual / poster) */
+    .card-preview--image {
+      background: #1a1a2e;
+      border: none;
+      padding: 0;
+    }
+
+    .card-preview-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .card-preview-inner {
+      text-align: center;
+      padding: 16px;
+    }
+
+    .card-preview-icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    /* ---- Character Area (centered inside the arc, behind the cards) ---- */
+    .character-stage {
+      position: relative;
+      z-index: 5;
+      width: clamp(240px, 26.4vw, 360px);   /* 1.2x 上一个尺寸 */
+      height: clamp(288px, 52.8vh, 456px);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    /* Footer wrapper pins the hint + character to the very bottom of the page */
+    .works-footer {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
+    .works-footer .interaction-hint {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    .character-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 8px 24px rgba(26,26,46,0.12));
+      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  filter 0.3s ease;
+    }
+
+    .character-img.look-left  { transform: translateX(-12px); }
+    .character-img.look-right { transform: translateX(12px); }
+    .character-img.look-up    { transform: translateY(-6px); }
+    .character-img.look-closed{ transform: scale(0.98); }       /* 闭眼 — 轻微收缩 */
+    .character-img.look-center{ transform: scale(1); }
+
+    /* ---- Interaction Hint ---- */
+    .interaction-hint {
+      text-align: center;
+      margin-top: clamp(20px, 3vh, 40px);
+      position: relative;
+      z-index: 10;
+      opacity: 0;
+      animation: hintFadeIn 0.6s ease forwards;
+      animation-delay: 0.6s;
+    }
+
+    .hint-text {
+      font-size: 14px;
+      color: var(--muted);   /* was #999 — single grey token now */
+      letter-spacing: 0.04em;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hint-icon {
+      display: inline-flex;
+      animation: hintBounce 2s ease-in-out infinite;
+    }
+
+    @keyframes hintFadeIn { to { opacity: 1; } }
+    @keyframes hintBounce {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+
+    /* ---- Decorative elements (toy-package feel) ---- */
+    .works-section::after {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(232,93,117,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .works-section::before {
+      content: '';
+      position: absolute;
+      bottom: -60px;
+      left: -60px;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(45,212,191,0.1) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    /* Scattered tape/sticker decorations */
+    .tape-deco {
+      position: absolute;
+      width: 70px;
+      height: 24px;
+      background: rgba(255, 220, 100, 0.55);   /* was 0.5 — match contact-page tape */
+      transform: rotate(-12deg);
+      z-index: 15;
+      pointer-events: none;
+    }
+    .tape-deco.tape-1 { top: 180px; left: 8%; }
+    .tape-deco.tape-2 { top: 320px; right: 6%; transform: rotate(8deg); background: rgba(232,93,117,0.3); }
+
+    /* ===== PROJECT DETAIL MODAL ===== */
+    .card-more {
+      margin-top: auto;      /* sinks the hint to the card's bottom edge, so all four
+                                cards show it at the same offset despite differing heights */
+      padding-top: 14px;     /* keeps a minimum gap from the preview above */
+      font-size: 12px;
+      font-weight: 700;
+      color: #7B6BA0;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .card-more::after {
+      content: '→';
+      transition: transform 0.2s ease;
+    }
+    .work-card:hover .card-more::after { transform: translateX(4px); }
+
+    .project-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .project-modal.open { display: flex; }
+
+    .pm-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(26, 26, 46, 0.55);
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .project-modal.open .pm-backdrop { opacity: 1; }
+
+    .pm-sheet {
+      position: relative;
+      width: min(940px, 94vw);
+      max-height: 90vh;
+      background: var(--cream);
+      border: var(--line-card) solid var(--ink);
+      border-radius: var(--r-sheet);
+      box-shadow: var(--sh-float);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: translateY(28px) scale(0.98);
+      opacity: 0;
+      transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+    }
+    .project-modal.open .pm-sheet { transform: translateY(0) scale(1); opacity: 1; }
+
+    .pm-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      z-index: 3;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: var(--line-btn) solid var(--ink);
+      background: #fff;
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s ease, background 0.2s ease, color 0.2s ease;
+    }
+    .pm-close:hover {
+      transform: rotate(90deg);
+      background: var(--pm-accent, #7B6BA0);
+      color: #fff;
+    }
+
+    .pm-scroll {
+      overflow-y: auto;
+      padding: 38px 42px 28px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .pm-header {
+      margin-bottom: 28px;
+      padding-right: 48px;
+      border-bottom: 2.5px dashed rgba(26, 26, 46, 0.18);
+      padding-bottom: 22px;
+    }
+    .pm-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 5px 12px;
+      border-radius: var(--r-tag);
+      margin-bottom: 14px;
+      background: var(--pm-accent-bg, #FFE4EC);
+      color: var(--pm-accent, #D6336C);
+    }
+    .pm-title {
+      font-family: 'ZCOOL KuaiLe', 'Noto Sans SC', sans-serif;
+      font-size: clamp(28px, 4.5vw, 44px);
+      font-weight: 900;
+      color: #1a1a2e;
+      line-height: 1.15;
+      display: none;            /* EN: Chinese 《》 names removed — English caption is now the heading */
+    }
+
+    .pm-title-en {
+      font-family: Georgia, 'Noto Serif SC', serif;
+      font-style: italic;       /* matches the card titles */
+      font-size: clamp(22px, 2.6vw, 30px);
+      font-weight: 800;
+      color: #1a1a2e;
+      line-height: 1.2;
+      margin: 0 0 8px;
+      letter-spacing: 0.005em;
+    }
+    .pm-sub {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+    .pm-roles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .pm-role {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink);
+      background: #fff;
+      border: var(--line-chip) solid var(--ink);   /* was 2px — chip tier */
+      border-radius: var(--r-pill);
+      padding: 5px 14px;
+    }
+
+    .pm-watch {
+      /* Quiet inline link under .pm-roles. No background, no border, no shadow —
+         just a line of text with an arrow, matching the rest of the chip strip's
+         typographic weight. */
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 12px;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans SC', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink);
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      text-decoration: none;
+      box-shadow: none;
+      align-self: flex-start;            /* pm-header is flex-column, anchor at flex start */
+    }
+
+    .pm-watch:hover {
+      text-decoration: underline;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .pm-watch::after {
+      content: "→";
+      font-weight: 600;
+      margin-left: 2px;
+    }
+
+    .pm-section { margin-bottom: 30px; }
+    .pm-section-h {
+      display: inline-block;
+      font-size: 15px;
+      font-weight: 900;
+      color: var(--pm-accent, #7B6BA0);
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+      padding-left: 12px;
+      border-left: 4px solid var(--pm-accent, #7B6BA0);
+    }
+    .pm-text p {
+      font-size: 15px;
+      line-height: 1.95;
+      color: var(--ink-soft);   /* was #33333f — ink-derived body text token */
+      margin-bottom: 12px;
+    }
+    /* **bold** spans inside body copy */
+    .pm-text strong { font-weight: 700; }
+    /* Intro block: paragraph text on top, project cover underneath (full width) */
+    .pm-intro {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: stretch;
+    }
+    .pm-intro .pm-text { flex: 0 0 auto; min-width: 0; }
+    /* Overview 下的主视觉图：宽度受控、左对齐，不再像横幅一样居中 */
+    .pm-cover {
+      flex: none;
+      width: auto;
+      max-width: 480px;
+      margin: 4px 0 0;
+      border: var(--line-chip) solid var(--ink);
+      border-radius: 14px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 4px 4px 0 rgba(26, 26, 46, 0.12);
+    }
+    .pm-cover img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+    .pm-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .pm-gallery img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 0;
+      border: 1.5px solid #1a1a2e;
+      background: transparent;
+      display: block;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .pm-gallery img:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 10px 22px rgba(26, 26, 46, 0.18);
+    }
+
+    /* 横向滑动画廊：不裁切，保持原比例，可左右滑动 */
+    .pm-gallery-wrap { position: relative; margin-top: 14px; }
+    .pm-gallery--hscroll {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;       /* NOT stretch: flex would otherwise pull a
+                                    width-capped landscape image up to the
+                                    tallest item's height, breaking its ratio
+                                    and letter-boxing it inside object-fit */
+      gap: 14px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 4px 2px 12px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: #c8cbe0 transparent;
+    }
+    .pm-gallery--hscroll::-webkit-scrollbar { height: 8px; }
+    .pm-gallery--hscroll::-webkit-scrollbar-thumb { background: #c8cbe0; border-radius: 4px; }
+    .pm-gallery--hscroll::-webkit-scrollbar-track { background: transparent; }
+    .pm-gallery--hscroll img {
+      flex: 0 0 auto;
+      /* Uniform display frame: every image is scaled to fit inside the same
+         340x290 box at its own ratio (never cropped), so a landscape shot and
+         a portrait shot end up with a comparable visual area. With a shared
+         height alone, a 1.78 landscape renders 425px wide while a 0.55
+         portrait is only 160px wide — a ~2.8x area gap that reads as "the
+         tall ones are tiny". Capping width + height closes it to ~1.4x. */
+      width: auto;
+      height: auto;
+      max-width: 340px;
+      max-height: 290px;
+      aspect-ratio: auto;        /* opt out of .pm-gallery's 4/3 box — a hscroll
+                                    frame must keep each image's own ratio or
+                                    portrait art gets letterboxed with big gaps */
+      object-fit: contain;
+      border-radius: 0;
+      border: none;
+      background: transparent;
+      display: block;
+      scroll-snap-align: start;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .pm-gallery--hscroll img:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 22px rgba(26, 26, 46, 0.18);
+    }
+    .pm-scroll-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px; height: 28px;   /* was 38px — scaled to 3/4 */
+      border-radius: 50%;
+      border: var(--line-chip) solid var(--ink);
+      background: rgba(255, 255, 255, 0.92);
+      color: #1a1a2e;
+      font-size: 16px;             /* was 22px — scaled to 3/4 */
+      line-height: 1;
+      cursor: pointer;
+      z-index: 5;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 12px rgba(26, 26, 46, 0.18);
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .pm-scroll-btn:hover { background: #fff; transform: translateY(-50%) scale(1.08); }
+    .pm-scroll-prev { left: 4px; }
+    .pm-scroll-next { right: 4px; }
+
+    .pm-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 42px;
+      border-top: 2.5px solid rgba(26, 26, 46, 0.12);
+      background: #fff7ec;
+    }
+    .pm-nav-btn {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+      background: #fff;
+      border: var(--line-btn) solid var(--ink);
+      border-radius: var(--r-pill);
+      padding: 9px 20px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+    }
+    .pm-nav-btn:hover {
+      transform: translateY(-2px);
+      background: var(--pm-accent, #7B6BA0);
+      color: #fff;
+    }
+    .pm-count {
+      font-size: 13px;
+      color: var(--muted);   /* was #9a9aae — single grey token now */
+      font-weight: 700;
+    }
+
+    /* ===== REDUCED MOTION ===== */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-title,
+      .profile-info::before,
+      .profile-row,
+      .explore-btn,
+      .hero-avatar,
+      .works-subtitle,
+      .works-title,
+      .interaction-hint {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+      .profile-info::before { transform: scaleY(1); }
+      .work-card { transform: none !important; }
+      .work-card:hover { transform: translateY(-8px) scale(1.03) !important; }
+      .character-img { transition: none; }
+      .hint-icon { animation: none; }
+    }
+
+    /* ===== 图片点击放大（lightbox） ===== */
+    .pm-gallery--hscroll img { cursor: zoom-in; }
+    .pm-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1100;
+      background: rgba(8, 10, 24, 0.9);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      display: none;
+      cursor: zoom-out;
+    }
+    /* Inner stage scrolls (so a zoomed picture can be panned) while the close
+       button and the hint stay pinned to the overlay. */
+    .pm-lightbox-stage {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      padding: 40px;
+      overflow: auto;
+      overscroll-behavior: contain;
+    }
+    .pm-lightbox-stage img { margin: auto; }
+    .pm-lightbox-hint {
+      position: absolute;
+      left: 50%;
+      bottom: 20px;
+      transform: translateX(-50%);
+      padding: 6px 16px;
+      border-radius: 999px;
+      background: rgba(8, 10, 24, 0.55);
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .pm-lightbox.open { display: flex; animation: pmLbFadeIn 0.25s ease; }
+    .pm-lightbox.open img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+      cursor: default;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+      animation: pmLbZoomIn 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .pm-lightbox-close {
+      position: fixed;
+      top: 22px;
+      right: 26px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 2px solid rgba(255, 255, 255, 0.55);
+      color: #ffffff;
+      font-size: 22px;
+      line-height: 1;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .pm-lightbox-close:hover { background: rgba(255, 255, 255, 0.22); transform: scale(1.08); }
+    @keyframes pmLbFadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes pmLbZoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+    /* ================================================================
+       THIRD SCREEN — CONTACT ("联系我")
+
+       The lavender of the hero returns here, so the site bookends itself:
+       lavender → cream → lavender. Two panels carry the whole page:
+       a keepsake card with a slowly turning portrait, and a dark
+       speech bubble that holds everything you'd need to reach me.
+       ================================================================ */
+    .contact-section {
+      position: relative;
+      z-index: 60;
+      min-height: 100vh;
+      min-height: 100dvh;
+      background: #C8CBE0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(100px, 13vh, 136px) 48px clamp(60px, 9vh, 88px);
+      overflow: hidden;
+      margin-top: -1px;
+    }
+
+    /* Oversized word, sitting just clear of the fixed nav so it stays readable */
+    .contact-mark {
+      position: absolute;
+      top: clamp(76px, 9.7vh, 100px);   /* pushed down clear of the nav */
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Anton', sans-serif;
+      /* sized so the full phrase fits the viewport width (7 chars before, 24 now) */
+      font-size: clamp(28px, 8.4vw, 138px);
+      line-height: 0.82;
+      letter-spacing: 0.02em;
+      color: #1a1a2e;
+      opacity: 0.07;
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .contact-inner {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1080px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(30px, 5vw, 84px);
+    }
+
+    /* ---- Left: keepsake card ---- */
+    .contact-card {
+      position: relative;
+      flex: 0 0 auto;
+      width: clamp(244px, 24vw, 312px);
+      background: var(--violet);
+      border: var(--line-card) solid var(--ink);
+      border-radius: var(--r-panel);
+      padding: 26px 24px 42px;
+      box-shadow: var(--sh-panel);
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.75s ease, transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Washi tape holding the card to the page — same scrapbook language as page 2 */
+    .contact-card::after {
+      content: "";
+      position: absolute;
+      top: -14px;
+      right: 16px;
+      width: 74px;
+      height: 26px;
+      background: rgba(255, 220, 100, 0.55);
+      transform: rotate(9deg);
+      pointer-events: none;
+    }
+
+    .contact-section.in .contact-card {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .contact-kicker {
+      font-family: Georgia, 'Noto Serif SC', serif;
+      font-style: italic;
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.86);
+    }
+
+    .contact-name {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(32px, 3.4vw, 46px);
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      color: #ffffff;
+      margin-top: 4px;
+    }
+
+    /* ---- Turning portrait: segmented ring + photo, opposite directions ---- */
+    .contact-orbit {
+      position: relative;
+      width: clamp(156px, 15vw, 212px);
+      height: clamp(156px, 15vw, 212px);
+      margin: 26px auto 0;
+    }
+
+    .contact-orbit-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 5px solid #ffffff;
+      -webkit-mask: conic-gradient(from 0deg,
+        #000 0deg 58deg, transparent 58deg 90deg,
+        #000 90deg 148deg, transparent 148deg 180deg,
+        #000 180deg 238deg, transparent 238deg 270deg,
+        #000 270deg 328deg, transparent 328deg 360deg);
+      mask: conic-gradient(from 0deg,
+        #000 0deg 58deg, transparent 58deg 90deg,
+        #000 90deg 148deg, transparent 148deg 180deg,
+        #000 180deg 238deg, transparent 238deg 270deg,
+        #000 270deg 328deg, transparent 328deg 360deg);
+      animation: orbitRing 13s linear infinite;
+    }
+
+    .contact-orbit-photo {
+      position: absolute;
+      inset: 7%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #ffffff;
+      animation: orbitPhoto 26s linear infinite;
+    }
+
+    .contact-orbit-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 42%;
+      display: block;
+    }
+
+    /* Corner CTA — shared capsule button pinned to the bottom-left of the SCREEN.
+       Page 2 ("联系我 ↓" → #contact) and page 3 ("关于我 ↑" → #top).
+       Fixed so it stays in the viewport corner on every screen size; a tiny
+       script only reveals the one belonging to the section currently centred. */
+    .contact-badge {
+      position: fixed;
+      left: clamp(18px, 2.6vw, 30px);
+      bottom: clamp(18px, 2.6vh, 28px);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      color: var(--ink);
+      border: var(--line-btn) solid var(--ink);
+      border-radius: var(--r-pill);
+      padding: 10px 22px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans SC', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      white-space: nowrap;
+      box-shadow: var(--sh-btn);
+      transition: opacity 0.35s ease, transform 0.22s ease, box-shadow 0.22s ease;
+      z-index: 150;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .contact-badge.is-on {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .contact-badge:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--sh-btn-hover);
+    }
+
+    /* Ghost variant ("About Me ↑"): 透明底 + 白描边 + 白字 + 柔和投影，
+       参考截图的浅紫底上的白色描边胶囊（不再是贴纸式白底墨边硬投影） */
+    .contact-badge--ghost {
+      background: transparent;
+      color: #ffffff;
+      border-color: #ffffff;
+      border-width: 3px;
+      box-shadow: 0 6px 16px rgba(26, 26, 46, 0.30);
+    }
+    .contact-badge--ghost:hover {
+      box-shadow: 0 9px 20px rgba(26, 26, 46, 0.36);
+    }
+
+    @keyframes orbitRing { to { transform: rotate(-360deg); } }
+    @keyframes orbitPhoto { to { transform: rotate(360deg); } }
+
+    /* ---- Right: dark speech bubble ---- */
+    .contact-blob {
+      position: relative;
+      flex: 1 1 auto;
+      max-width: 620px;
+      background: #1a1a2e;
+      border-radius: 92px 80px 80px 18px;
+      padding: clamp(52px, 5vw, 68px) clamp(44px, 5vw, 66px);
+      box-shadow: var(--sh-panel);
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.75s ease 0.12s, transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.12s;
+    }
+
+    .contact-section.in .contact-blob {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .blob-title {
+      font-family: Georgia, 'Noto Serif SC', serif;
+      font-weight: 900;
+      /* "Drop Me A Line!" is 13 chars — capped so it stays on one line inside
+         the 488px blob (was clamp(33px, 4.5vw, 62px) which wrapped at 1440p). */
+      font-size: clamp(28px, 3.6vw, 52px);
+      line-height: 1.14;
+      letter-spacing: 0.01em;
+      color: #ffffff;
+    }
+
+    .blob-title em {
+      display: block;
+      font-style: normal;
+      font-weight: 700;
+      font-size: clamp(18px, 2.3vw, 30px);
+      letter-spacing: 0.01em;
+      color: rgba(255, 255, 255, 0.82);
+      margin-top: 8px;
+    }
+
+    .blob-bolt {
+      display: block;
+      width: 24px;
+      height: 24px;
+      margin-top: 20px;
+      color: #2DD4BF;
+    }
+
+    .blob-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .blob-chip {
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      color: rgba(255, 255, 255, 0.78);
+      border: 1.5px solid rgba(255, 255, 255, 0.26);
+      border-radius: 999px;
+      padding: 4px 13px;
+    }
+
+    .blob-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    .blob-mail {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: #ffffff;
+      color: #1a1a2e;
+      border-radius: 999px;
+      padding: 11px 20px;
+      font-size: 13.5px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    .blob-mail svg { flex: 0 0 auto; }
+
+    .blob-btn {
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      border-radius: 999px;
+      padding: 11px 19px;
+      cursor: pointer;
+      text-decoration: none;
+      border: 1.5px solid rgba(255, 255, 255, 0.34);
+      background: transparent;
+      color: #ffffff;
+      white-space: nowrap;
+      transition: background 0.2s ease, border-color 0.2s ease,
+                  color 0.2s ease, transform 0.2s ease;
+    }
+
+    .blob-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.6);
+      transform: translateY(-1px);
+    }
+
+    .blob-btn--primary {
+      background: #2DD4BF;
+      border-color: #2DD4BF;
+      color: #06281f;
+    }
+
+    .blob-btn--primary:hover {
+      background: #3ee3d0;
+      border-color: #3ee3d0;
+      color: #06281f;
+    }
+
+    .blob-btn.copied {
+      background: #2DD4BF;
+      border-color: #2DD4BF;
+      color: #06281f;
+    }
+
+    .contact-credit {
+      position: absolute;
+      bottom: clamp(18px, 3vh, 30px);
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11.5px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 26, 46, 0.45);
+      white-space: nowrap;
+      z-index: 2;
+    }
+
+    /* ---- Third screen: responsive ---- */
+    @media (max-width: 1200px) {
+      .contact-card { width: clamp(218px, 26vw, 262px); }
+      .contact-orbit { width: clamp(138px, 16vw, 176px); height: clamp(138px, 16vw, 176px); }
+    }
+
+    @media (max-width: 900px) {
+      .contact-section { padding: 106px 22px 66px; }
+      .contact-inner { flex-direction: column; gap: 42px; }
+      .contact-card { width: min(300px, 84vw); }
+      .contact-blob {
+        max-width: 100%;
+        border-radius: 68px 60px 60px 18px;
+        padding: 44px 32px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .contact-section { padding: 96px 18px 70px; }
+      .contact-blob { border-radius: 52px 44px 44px 16px; padding: 38px 24px; }
+      .blob-title { font-size: 33px; }
+      .blob-title em { font-size: 19px; }
+      .blob-bolt { width: 20px; height: 20px; margin-top: 16px; }
+      .blob-actions { gap: 8px; margin-top: 22px; }
+      .blob-mail { font-size: 12.5px; padding: 10px 16px; gap: 7px; }
+      .blob-btn { font-size: 12.5px; padding: 10px 16px; }
+      .contact-credit { font-size: 10.5px; }
+      /* 弹窗主视觉：手机端弹窗本身很窄，图片自然全宽即可（base 的 480px 上限不生效），
+         这里只把投影收轻一点，减少小屏上的厚重感 */
+      .pm-cover { box-shadow: 3px 3px 0 rgba(26, 26, 46, 0.12); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .contact-orbit-ring,
+      .contact-orbit-photo { animation: none; }
+      .contact-card,
+      .contact-blob { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1200px) {
+      .works-grid {
+        max-width: 1000px;
+      }
+      .work-card { width: 206px; }   /* 按桌面 220px 同比缩小（原 180/192 的比值），保持卡片观感一致 */
+      /* narrower card → card 4's title needs a smaller size to stay on 2 lines */
+      .work-card:nth-child(4) .card-title-en { font-size: 13px; }
+      .work-card:nth-child(1) { left: 2%; top: 6%; }
+      .work-card:nth-child(2) { left: 27%; top: 2%; }
+      .work-card:nth-child(3) { right: 27%; top: 2%; }
+      .work-card:nth-child(4) { right: 2%; top: 6%; }
+      .work-card:hover { transform: rotate(0deg) translateY(-10px) scale(1.04) !important; }
+      .character-stage { width: clamp(204px, 28.8vw, 288px); height: clamp(288px, 50.4vh, 432px); }
+    }
+
+    @media (max-width: 768px) {
+      .nav { padding: 16px 18px; }
+      .brand-name { font-size: 12.5px; letter-spacing: 0.08em; }
+      .nav-right { gap: 14px; }
+      .nav-link { font-size: 12px; white-space: nowrap; }
+      .nav-cta { padding: 9px 14px; font-size: 12px; }
+      .hero-body { padding: 0 24px; }
+      /* let the avatar grow to the largest size that still fits the phone width
+         (aspect 1080:1920 — width is the binding constraint on narrow screens) */
+      .hero-avatar { height: auto; width: min(100vw, 51.75vh); max-width: 100vw; }
+      .profile-card { right: 24px; }
+      .profile-rows { flex-direction: column; gap: 6px; align-items: flex-start; }
+      .profile-label { font-size: 13px; }
+      .profile-value { font-size: 14px; }
+      /* Tagline: on phones there is no room beside the centered avatar, so drop
+         the desktop size (28px → 16px) and tuck it into the gap under the
+         giant title, centred across the full width. */
+      .hero-tagline {
+        left: 24px;
+        right: 24px;
+        top: 27%;
+        transform: translateY(-50%);
+        font-size: 16px;
+        line-height: 1.35;
+        max-width: none;
+        text-align: center;
+      }
+      /* .hero-cta position is inherited from the shared clamp() rule above */
+      .explore-btn { font-size: 13px; padding: 10px 22px; }
+
+      .works-section { height: auto; min-height: 100vh; padding: 72px 20px 60px; }
+      /* Stack cards vertically on mobile */
+      .works-grid {
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+        padding-top: 40px;
+      }
+      .work-card {
+        position: relative !important;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        width: 100%;
+        max-width: 340px;
+        transform: none !important;
+      }
+      .work-card:hover { transform: translateY(-6px) scale(1.02) !important; }
+      /* Mobile cards are full-width, so card 4's title only needs a hair less
+         than the shared size to stay on one line (17px = 303px vs 302px of
+         available width — 1px too wide). */
+      .work-card:nth-child(4) .card-title-en { font-size: 16px; }
+      .works-footer {
+        position: static;
+        transform: none;
+        width: 100%;
+      }
+      .character-stage {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        height: 56vh;
+        aspect-ratio: 459 / 800;
+        width: auto;
+        margin: 20px auto 0;
+      }
+      .tape-deco { display: none; }
+
+      .project-modal { padding: 12px; }
+      .pm-scroll { padding: 30px 20px 20px; }
+      .pm-nav { padding: 14px 20px; flex-wrap: wrap; justify-content: center; }
+      .pm-gallery { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+      .pm-gallery--hscroll img { max-width: 230px; max-height: 200px; }
+      .pm-scroll-btn { display: none; }
+      /* .pm-intro is a full-width column stack at every breakpoint now */
+      .pm-lightbox-stage { padding: 16px; }
+      .pm-lightbox-close { top: 14px; right: 16px; width: 40px; height: 40px; font-size: 20px; }
+    }
+
+    /* ===== CLICK SPARK (vanilla 2D-canvas port of React Bits <ClickSpark/>) =====
+       Fixed full-viewport canvas; sits above section content (z 1–70) but below
+       the nav (z 200), the project modal (z 1000) and the lightbox (z 1100). */
+    #clickSpark {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      user-select: none;
+      z-index: 150;
+    }
+
+    /* Cross-origin fallback: the video itself is filtered with the SVG
+       chroma-key above (used only when canvas pixel readback is blocked) */
+    .hero-avatar--svgkey { filter: url(#gsKeyFallback); }
+  </style>
+<style id="__dm_no_drag_style__">* { -webkit-user-drag: none !important; }</style><style id="__dm_bindable_badge_style__">[data-sp-bindable="database"]{outline:1px dashed #0088ff;outline-offset:2px;border-radius:4px;}[data-sp-bindable="database"] *{pointer-events:none !important;transition:none !important;animation:none !important;}[data-sp-bindable="database"]{transition:none !important;animation:none !important;}</style></head>
+<body data-page-node-id="IZh6j3ROzmD0z88GHF3lKm" style="">
+
+  <!-- SVG chroma-key filter: fallback when canvas readback is blocked
+       (page opened from a different origin). feComposite/in makes the key
+       respect the source alpha, otherwise the filter region itself would
+       be painted opaque black. -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <filter id="gsKeyFallback" color-interpolation-filters="sRGB">
+      <feColorMatrix in="SourceGraphic" result="keyed" type="matrix"
+        values="1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0.5 -1 0.5 0 0.5"/>
+      <feComponentTransfer in="keyed" result="keySoft">
+        <feFuncA type="linear" slope="3.5" intercept="-0.75"/>
+      </feComponentTransfer>
+      <feComposite in="keySoft" in2="SourceGraphic" operator="in"/>
+    </filter>
+  </svg>
+
+  <!-- Dot pattern overlay -->
+  <div class="dot-pattern" aria-hidden="true" data-page-node-id="aOnEwhBZBm0MmFcfAn9q0v"></div>
+
+  <!-- Click spark canvas (pure decoration, never intercepts pointer) -->
+  <canvas id="clickSpark" aria-hidden="true"></canvas>
+
+  <!-- Navigation — kept at body level so its stacking context is global:
+       it stays fixed above the works section (z-index 50) on page 2 -->
+  <nav class="nav scrolled" role="navigation" aria-label="Main navigation" data-page-node-id="smEUq8fj8hk50T6br6rRUu">
+    <div class="nav-brand" data-page-node-id="DzxvYWZlzObRIu9AeuB92m">
+      <div class="brand-circle" data-page-node-id="NxcrdlFVoxoa2NjPyK5a3q"><span data-page-node-id="JoFw9eNWailHXpOEFTGXjN">L</span></div>
+      <span class="brand-name" data-page-node-id="2idILg4V1mlmxHBgOOytiI">YALI LIU</span>
+    </div>
+    <div class="nav-right" data-page-node-id="uDuocx6qXDk91W7To0Py7x">
+      <a class="nav-link" href="#top" data-page-node-id="OzBw2HFsnw6OOAzbS7D6kJ">About</a>
+      <a class="nav-cta" href="#works" data-page-node-id="02tgzBwVuiLyebv11FFdGP">Portfolio</a>
+      <a class="nav-link" href="#contact" data-page-node-id="c1nTxKq7MvE4sWuLA9bRzP">Contact</a>
+    </div>
+  </nav>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="hero" id="top" data-page-node-id="cBXYOdoHQMHOsi3CB6GIup">
+
+    <!-- Hero Body Content -->
+    <div class="hero-body" data-page-node-id="tRIdSuEGBNgqGn1IqkIKYY">
+
+      <!-- Tagline (left side) — mirrors the right-side profile card -->
+      <p class="hero-tagline" data-page-node-id="tgLn1PrOf1LeGa9Ne1Ex10">A content creator who learns by making.</p>
+
+      <!-- Giant centered title -->
+      <div class="hero-title-wrap" data-page-node-id="yaJdKDaNgvF2f4lMEJ4IrC">
+        <h1 class="hero-title" data-page-node-id="FOHJSThoyKPGBzDUqLS6EN">YALI LIU</h1>
+      </div>
+
+      <!-- 3D avatar video (green-screen + canvas chroma key) -->
+      <video class="hero-avatar-src" id="avatarVideo" autoplay="" muted="" loop="" playsinline="" preload="auto" data-page-node-id="0qdkMKQVG1XmiWUDKFBhbK">
+        <source src="avatar.mp4" type="video/mp4" data-page-node-id="vkHWzQBe64ykMEsl7zNdKd">
+      </video>
+      <canvas class="hero-avatar" id="avatarCanvas" aria-hidden="true" data-page-node-id="AMuFL8ARylucL5V79FffGf"></canvas>
+
+      <!-- Profile info card (right) -->
+      <aside class="profile-card" aria-label="Profile" data-page-node-id="s10rpsyhs3Qn6Ar9BJyVQ6">
+        <div class="profile-info" data-page-node-id="ezR3OdzrLzspM8QJXDAvRD">
+          <div class="profile-rows">
+            <div class="profile-row" data-page-node-id="P2hZQ5wc6xQIA2YLxaMOxq">
+              <span class="profile-label" data-page-node-id="shAiZVw9BQKjI8FTfYFYsJ" style="color: rgb(255, 255, 255);">Name</span>
+              <span class="profile-value" data-page-node-id="iQVNSLVUVsyDhSZIxyWxAw">Yali Liu</span>
+            </div>
+            <div class="profile-row" data-page-node-id="Egf6CP4DpjcfJJp1vxaCj4">
+              <span class="profile-label" data-page-node-id="pNWsurghGp53H3Ka8nvBXA">Phone</span>
+              <span class="profile-value" data-page-node-id="wbp9piH9XBeedoWk0TEHq1">18926834683</span>
+            </div>
+            <div class="profile-row" data-page-node-id="T1nV24POxjYFwdyrAGoCEW">
+              <span class="profile-label" data-page-node-id="5BwT0oRTdu9MgxSigzlKg0">Address</span>
+              <span class="profile-value" data-page-node-id="PAakOaDztrXPZKzlF9OTBp">Dongguan, Guangdong, China</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Explore CTA (bottom-left) -->
+      <div class="hero-cta" data-page-node-id="xfdxn0rF13nahjRhEPN0sD">
+        <a class="explore-btn" href="#works" data-page-node-id="7AtY2oJxF1X13bUsPI5yLG">
+          Portfolio<span class="arrow" data-page-node-id="r9raW7paX3ptx3LwxTNKH4">↓</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECOND SCREEN — WORKS SHOWCASE
+       Covers hero via higher z-index + scroll-triggered reveal
+       ============================================================ -->
+  <section class="works-section" id="works" data-page-node-id="ptp7FCbBVx6u8feLoHbPba">
+
+    <!-- Decorative tape elements -->
+    <div class="tape-deco tape-1" aria-hidden="true" data-page-node-id="dEqik6UZ2xVFsdRb2yn81Y"></div>
+    <div class="tape-deco tape-2" aria-hidden="true" data-page-node-id="HkK61AZMzD455IeFeNcQ6B"></div>
+
+    <!-- Section header -->
+    <header class="works-header" data-page-node-id="B08PJPOcFDmcV5gVNk9Xei">
+      <h2 class="works-title" data-page-node-id="lz2GSvGA1R3rwT7oNG03o6">My Curious Little World</h2>
+    </header>
+
+    <!-- Project cards (arc layout, loose spacing) -->
+    <div class="works-grid" data-page-node-id="Fsispps2e0BesKBY2f5NLq">
+
+      <!-- Card 1: 微综艺 -->
+      <article class="work-card" data-direction="left" data-project="efan" data-page-node-id="J82Au5dHUuklGUL7chZ6TR">
+        <div class="card-head">
+          <span class="card-tag" data-page-node-id="LwDMRZaargp7MWXmMFVZxJ">Variety Show</span>
+          <p class="card-title-en" data-page-node-id="cnEt1An1Le1An9Ne1AnE11"><em>E Dun Fan De Shi’er</em></p>
+          <h3 class="card-title" data-page-node-id="qVKdOfivIn1ROwpsr5Y2BG">《e顿饭的事儿》</h3>
+        </div>
+        <div class="card-preview card-preview--image" data-page-node-id="4LUDWjTSDhEWjpy0s6BVm1">
+          <img class="card-preview-img" src="images/e-fan-shi-er-main.png" alt="《e顿饭的事儿》 key visual" draggable="false" data-page-node-id="3z72lU4yzRLF96lVrCd2mH">
+        </div>
+      </article>
+
+      <!-- Card 2: 剧情片 -->
+      <article class="work-card" data-direction="closed" data-project="miyu" data-page-node-id="zXwKxsoYEGiHYevbmmMakz">
+        <div class="card-head">
+          <span class="card-tag" data-page-node-id="BCE2NroXQ9DgAhOymLdBQK">Short Film</span>
+          <p class="card-title-en" data-page-node-id="cnMi1Yu1Le1Yu9Ne1YuM12"><em>Mi Yu</em></p>
+          <h3 class="card-title" data-page-node-id="oEOJVmgolunMupAkGzsVV1">《谜雨》</h3>
+        </div>
+        <div class="card-preview card-preview--image" data-page-node-id="tc7hO6pgfCtumNv9p4OB9y">
+          <img class="card-preview-img" src="images/miyu-card-still.png" alt="《谜雨》 key visual" draggable="false" data-page-node-id="YvLO83BcPXjPe7rEu3LtMi" data-original-src="" data-last-crop-x="" data-last-crop-y="" data-last-crop-w="" data-last-crop-h="">
+        </div>
+      </article>
+
+      <!-- Card 3: 科普短片 -->
+      <article class="work-card" data-direction="up" data-project="juzi" data-page-node-id="zC5MNJnrN6FPuumXkOUnPN">
+        <div class="card-head">
+          <span class="card-tag" data-page-node-id="GT7S71yn22h7X6T44y0Uq1">Educational Short</span>
+          <p class="card-title-en" data-page-node-id="cnJu1Tz1Le1Tz9Ne1TzJ13"><em>The Adventures of Tangerine</em></p>
+          <h3 class="card-title" data-page-node-id="x7rK4UOK2LWAN3t2PPiRPM">《橘子历险记》</h3>
+        </div>
+        <div class="card-preview card-preview--image" data-page-node-id="bYZEUEwtMotYlEoQw5FJ9E">
+          <img class="card-preview-img" src="doc_images/doc_img_28.jpeg" alt="《橘子历险记》 key visual" draggable="false" data-page-node-id="dYeSvgJTqjAispHd9BtZaY">
+        </div>
+      </article>
+
+      <!-- Card 4: 宣传片 -->
+      <article class="work-card" data-direction="right" data-project="changan" data-page-node-id="wvVzZNzlfMu8ySLxJk57TP">
+        <div class="card-head">
+          <span class="card-tag" data-page-node-id="qRFdUsHpDmT3G985SfFQFz">Promotional Film</span>
+          <p class="card-title-en" data-page-node-id="cnCh1An1Le1An9Ne1AnC14"><em>Chang’an Chongtou Zheng Qi Xing</em></p>
+          <h3 class="card-title" data-page-node-id="5ui3a0jWAoFaytSMMAcHAV">《长安涌头正气行》</h3>
+        </div>
+        <div class="card-preview card-preview--image" data-page-node-id="F3LbmlXEUCfRCo3QCnfZA0">
+          <img class="card-preview-img" src="images/changan-card-still.png" alt="《长安涌头正气行》 key visual" draggable="false" data-page-node-id="y1p7i8fvTcRALlbb5CZAkU" data-original-src="" data-last-crop-x="" data-last-crop-y="" data-last-crop-w="" data-last-crop-h="">
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Footer: interaction hint + character pinned to the very bottom of the page -->
+    <div class="works-footer" data-page-node-id="6Sbu6eFFrOAtKVyGJBpb13">
+      <div class="interaction-hint" data-page-node-id="NnadYJXQU4Ko3UJzFFuTMQ">
+
+      </div>
+
+      <!-- Interactive character (bottom-center) — pre-keyed transparent frames -->
+      <div class="character-stage" data-page-node-id="IM0yfQqskNScITZvMUFs1R">
+        <img class="character-img look-center" id="charImg" src="char_keyed/frame_272.webp" alt="Interactive character" draggable="false" data-page-node-id="NkJwULeosxDwla2QDwjxFL">
+      </div>
+    </div>
+
+    <!-- Bottom-left corner CTA → scroll to contact section -->
+    <a class="contact-badge" href="#contact" data-page-node-id="Pg3Wv5RbYt8nKjLmFoQeRz">Contact Me ↓</a>
+
+  </section>
+
+  <!-- ============================================================
+       THIRD SCREEN — CONTACT ("联系我")
+       Keepsake card + dark speech bubble. Reachable from the nav and
+       by scrolling past the works grid.
+       ============================================================ -->
+  <section class="contact-section" id="contact" aria-labelledby="contactTitle" data-page-node-id="Ct7Wq2mRn8HdK5pYvLbXeA">
+
+    <!-- Oversized word, cropped by the top edge -->
+    <div class="contact-mark" aria-hidden="true" data-page-node-id="Km3Vt9sQeR2yUbNxZoJdLw">THANK YOU FOR WATCHING!</div>
+
+    <div class="contact-inner" data-page-node-id="Pz4WnR6bXcT1gHqVfMoyKd">
+
+      <!-- ---- Left: keepsake card ---- -->
+      <article class="contact-card" data-page-node-id="Ae7LmQ3dVtZ9oIuYcSxNpR">
+        <p class="contact-kicker" data-page-node-id="Bq2XnV8wJk4tPfEbGyUmsO">Created by</p>
+        <h2 class="contact-name" data-page-node-id="Cr5ZmW1gHd7aSeUjKvYtLi">YALI LIU</h2>
+
+        <!-- Portrait on a turning ring -->
+        <div class="contact-orbit" data-page-node-id="Et1ZoY7mRq5cUgWdJxAsFn">
+          <div class="contact-orbit-ring" aria-hidden="true" data-page-node-id="Fu4ApZ2nSr8dWhXeKyBtGo"></div>
+          <div class="contact-orbit-photo" data-page-node-id="Gv7BqA5oXs2eXiYfLzCuHp">
+            <img src="images/contact-bust.png" alt="Illustrated portrait of Yali Liu" draggable="false" data-page-node-id="Hw3CrB6pYt5fYjZgMdDvIq">
+          </div>
+        </div>
+      </article>
+
+      <!-- ---- Right: speech bubble ---- -->
+      <div class="contact-blob" data-page-node-id="Jy2EtD5rAv1hAlBiOfFxKs">
+
+        <h2 class="blob-title" id="contactTitle" data-page-node-id="La1GvF9tCx7jCnDkQhHzMu">
+          Drop Me A Line!
+        </h2>
+
+        <svg class="blob-bolt" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-page-node-id="Mb4HwG2uDy3kDoElRiIANv">
+          <path d="M13.6 2 4 13.4h6.1L9.4 22 20 10.2h-6.2z"/>
+        </svg>
+
+        <div class="blob-chips" data-page-node-id="Od2JyI8wFa9mFqGnTkKCPx">
+          <span class="blob-chip" data-page-node-id="Pe5KzJ1xGb2nGrHoUlLDQy">Content Strategy</span>
+          <span class="blob-chip" data-page-node-id="Qf8LaK4yHc5oHsIpVmMERz">Digital Media</span>
+          <span class="blob-chip" data-page-node-id="Rg1MbL7zId8pItJqWnNFSa">Creative Production</span>
+          <span class="blob-chip" data-page-node-id="Sh4NcM2AJd1qJuKrXoOGTb">Visual Storytelling</span>
+        </div>
+
+        <div class="blob-actions" data-page-node-id="Ti7OdN5BKe4rKvLsYpPHUc">
+          <span class="blob-mail" data-page-node-id="Uj2PeO8CLf7sLwMtZqQIVd">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-page-node-id="Vk5QfP1DMg8tMxNuArRJWf">
+              <rect x="2" y="4.5" width="20" height="15" rx="3"/>
+              <path d="m3.2 7.4 8.8 5.9 8.8-5.9"/>
+            </svg>
+            Liuyali27fall@163.com
+          </span>
+          <button class="blob-btn" id="copyMail" type="button" data-mail="Liuyali27fall@163.com" data-page-node-id="Wl8RgQ4ENh1uNyOvBsSKXg">Copy Email</button>
+          <a class="blob-btn blob-btn--primary" href="mailto:Liuyali27fall@163.com" data-page-node-id="Xm1ShR7FOi4vOzPwCtTLYh">Send Email</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom-left corner CTA → back to the top (page 1) -->
+    <a class="contact-badge contact-badge--ghost" href="#top" data-page-node-id="Ix9DsC4qZu8gZkAhNeEwJr">About Me ↑</a>
+
+    <p class="contact-credit" data-page-node-id="Yn4TiS8GPj7wPaQxDuUMZi">© 2026 YALI LIU</p>
+
+  </section>
+
+  <!-- ============================================================
+       PROJECT DETAIL MODAL (opened by clicking a work card)
+       ============================================================ -->
+  <div class="project-modal" id="projectModal" aria-hidden="true" data-page-node-id="dXdiQylq0VXA2xmOj95G6O">
+    <div class="pm-backdrop" data-pm-close="" data-page-node-id="EReeAESwdxoIUI6L5dmFET"></div>
+    <div class="pm-sheet" role="dialog" aria-modal="true" aria-labelledby="pmTitle" data-page-node-id="vkeGGeuXPm7gNOfDLfkbD5" style="--pm-accent: #D6336C; --pm-accent-bg: #FFE4EC;">
+      <button class="pm-close" data-pm-close="" aria-label="Close details" data-page-node-id="JDqYSoDyd5RAjv7m3RA9vq">✕</button>
+      <div class="pm-scroll" data-page-node-id="IaKqxOvv5LyokP4wDJGcsJ">
+        <header class="pm-header" data-page-node-id="03h6sBkNGA0LFoIDH6lUNv">
+          <span class="pm-tag" id="pmTag" data-page-node-id="N20niAdcNP9GX1i3OOtxU6">Variety Show</span>
+          <p class="pm-title-en" id="pmTitleEn" data-page-node-id="pmT1An1Le1An9Ne1Pmt15"></p>
+          <h2 class="pm-title" id="pmTitle" data-page-node-id="n2fqmMCxWrkKdCYzny31kU">《e顿饭的事儿》</h2>
+          <p class="pm-sub" id="pmSub" data-page-node-id="81q312kH5UVgMfEQmFEkup">Streaming on Mango TV, Douyin, Xiaohongshu (RED) and more</p>
+          <div class="pm-roles" id="pmRoles" data-page-node-id="sDuHXEklG6wWG4iAJGbCkf"><span class="pm-role" data-page-node-id="4mF3hlj1ft9o7QaOMRacxY">Planning</span><span class="pm-role" data-page-node-id="mvt9slCKVS63p5RqwdnypC">Post-production</span></div>
+          <div class="pm-watch-wrap" id="pmWatch" data-page-node-id="pmWatch01"></div>
+        </header>
+        <div class="pm-body" id="pmBody" data-page-node-id="KO6wnaIdQECLPOFPxKpo6A"></div>
+      <nav class="pm-nav" data-page-node-id="pG2f7Rh1MwCmW8dDE4EESa">
+        <button class="pm-nav-btn" id="pmPrev" data-page-node-id="tBlDOcQRU93yenTEWHvWz1">← Previous</button>
+        <span class="pm-count" id="pmCount" data-page-node-id="JjyfEiDLjV12KApQCHJCHd">1 / 4</span>
+        <button class="pm-nav-btn" id="pmNext" data-page-node-id="1kFR6lqc0MpIh0QmgfqgVG">Next →</button>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ================================================================
+       SCRIPTS
+       ================================================================ -->
+
+  <!-- Chroma-key renderer for the hero avatar video -->
+  <script>
+    (function () {
+      var video = document.getElementById('avatarVideo');
+      var canvas = document.getElementById('avatarCanvas');
+      if (!video || !canvas) return;
+      var ctx = canvas.getContext('2d');
+
+      // --- Key parameters, tuned against this clip ------------------------
+      // The green screen sits at a colour dominance of ~170 while every part
+      // of the character (black hair, black clothing, skin) stays below ~15,
+      // so a wide soft ramp clears the screen completely without touching
+      // the character. SPILL caps green on every visible pixel, which is
+      // what removes the green fringe along hair and clothing edges.
+      var LO    = 14;   // dominance <= LO  -> fully opaque
+      var HI    = 145;  // dominance >= HI  -> fully transparent
+      var DARK  = 70;   // anything this dark is always the character -> keep
+      var SPILL = 8;    // max green allowed above max(r, b)
+
+      var work = document.createElement('canvas');
+      var wctx = work.getContext('2d', { willReadFrequently: true });
+      var MAX_SIDE = 1100;
+
+      // --- Cross-origin fallback ------------------------------------------
+      // Opening the page from another origin (a standalone copy on file://,
+      // for example) taints the canvas, so pixel readback is blocked. Then
+      // hide the canvas and key the video with the SVG filter instead.
+      var fellBack = false;
+      function fallbackToSvgKey() {
+        if (fellBack) return;
+        fellBack = true;
+        canvas.style.display = 'none';
+        var ok = !!(window.CSS && CSS.supports && CSS.supports('filter', 'url("#gsKeyFallback")'));
+        video.classList.remove('hero-avatar-src');
+        if (!ok) {
+          // No usable filter -> show nothing rather than the raw green screen.
+          video.style.display = 'none';
+          return;
+        }
+        video.classList.add('hero-avatar', 'hero-avatar--svgkey');
+      }
+
+      function draw() {
+        if (video.readyState >= 2 && video.videoWidth > 0) {
+          var vw = video.videoWidth, vh = video.videoHeight;
+          var s = Math.min(1, MAX_SIDE / Math.max(vw, vh));
+          var rw = Math.round(vw * s), rh = Math.round(vh * s);
+          if (canvas.width !== rw || canvas.height !== rh) {
+            canvas.width = rw; canvas.height = rh;
+            work.width = rw; work.height = rh;
+          }
+          wctx.drawImage(video, 0, 0, rw, rh);
+          var img;
+          try {
+            img = wctx.getImageData(0, 0, rw, rh);
+          } catch (err) {
+            fallbackToSvgKey();
+            return;
+          }
+          var d = img.data;
+          for (var i = 0; i < d.length; i += 4) {
+            var r = d[i], g = d[i + 1], b = d[i + 2];
+            var mx = r > b ? r : b;
+            var dom = g - mx;
+            var alpha;
+            if (g <= DARK || dom <= LO) {
+              alpha = 255;
+            } else if (dom >= HI) {
+              alpha = 0;
+            } else {
+              alpha = (255 * (HI - dom) / (HI - LO)) | 0;
+            }
+            if (alpha < 16) alpha = 0;
+            else if (alpha > 239) alpha = 255;
+            if (alpha !== 0) {
+              var lim = mx + SPILL;
+              if (g > lim) d[i + 1] = lim;
+            }
+            d[i + 3] = alpha;
+          }
+          ctx.clearRect(0, 0, rw, rh);
+          ctx.putImageData(img, 0, 0);
+        }
+        requestAnimationFrame(draw);
+      }
+      requestAnimationFrame(draw);
+      video.play().catch(function () {});
+    })();
+  </script>
+
+  <!-- Interactive character + nav scroll behavior -->
+  <script>
+    (function () {
+      // --- Nav scroll effect ---
+      var nav = document.querySelector('.nav');
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > 60) {
+          nav.classList.add('scrolled');
+        } else {
+          nav.classList.remove('scrolled');
+        }
+      }, { passive: true });
+
+      // --- Interactive character: pre-keyed transparent frames swapped via <img> ---
+      // No canvas / getImageData  → works on file:// AND http (no tainting issues)
+      var charImg = document.getElementById('charImg');
+      var FRAMES_DIR = 'char_keyed/';
+
+      // Static expression frame per direction — the character "定格" (freezes)
+      // on one fixed frame instead of cycling an animation.
+      var DIR_FRAMES = {
+        center:  272,   // 鼠标未落在任何卡片 — frame_272
+        left:    302,   // 最左《e顿饭的事儿》— frame_302
+        right:   55,    // 最右《长安涌头正气行》— frame_055
+        up:      100,   // 右二《橘子历险记》 — frame_100
+        closed:  217    // 左二《谜雨》       — frame_217
+      };
+
+      function pad3(n) { return ('00' + n).slice(-3); }
+      function frameSrc(i) { return FRAMES_DIR + 'frame_' + pad3(i) + '.webp'; }
+
+      // Preload the five expression frames (instant swap)
+      var frameCache = {};
+      for (var dirKey in DIR_FRAMES) {
+        var num = DIR_FRAMES[dirKey];
+        var key = pad3(num);
+        if (!frameCache[key]) {
+          frameCache[key] = new Image();
+          frameCache[key].src = frameSrc(num);
+        }
+      }
+
+      var currentDir = null;
+
+      function playDirection(dir) {
+        if (dir === currentDir) return;
+        currentDir = dir;
+        var target = DIR_FRAMES[dir];
+        if (target == null) target = DIR_FRAMES.center;
+        var cache = frameCache[pad3(target)];
+        charImg.src = (cache && cache.complete && cache.naturalWidth)
+          ? cache.src
+          : frameSrc(target);           // on-the-fly fallback
+        charImg.className = 'character-img look-' + dir;
+      }
+
+      // Start with the no-hover expression
+      playDirection('center');
+
+      // --- Card hover listeners: freeze on a fixed expression per card ---
+      var cards = document.querySelectorAll('.work-card');
+      cards.forEach(function (card) {
+        card.addEventListener('mouseenter', function () {
+          var dir = this.getAttribute('data-direction') || 'center';
+          playDirection(dir);
+        });
+        card.addEventListener('mouseleave', function () {
+          playDirection('center');
+        });
+      });
+
+      // --- Smooth scroll for anchor links ---
+      document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          var target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
+
+    })();
+  </script>
+
+  <!-- Project detail modal: data + open/close/navigation -->
+  <script>
+  (function () {
+    // ---------- Image path helper (high-res JPEGs rebuilt from the original sources) ----------
+    function img(n) {
+      return 'doc_images/doc_img_' + ('0' + n).slice(-2) + '.jpeg';
+    }
+    function imgRange(a, b) {
+      var r = [];
+      for (var n = a; n <= b; n++) r.push(img(n));
+      return r;
+    }
+
+    // ---------- Project content (English) ----------
+    var PROJECTS = {
+      efan: {
+        tag: 'Variety Show', title: '《e顿饭的事儿》', titleEn: 'E Dun Fan De Shi’er', watchUrl: 'https://xhslink.cn/o/3tc3v6D8MJ3',
+        sub: 'Streaming on Mango TV, Douyin, Xiaohongshu (RED) and more',
+        accent: '#D6336C', accentBg: '#FFE4EC',
+        cover: 'images/cover-efan.png',
+        roles: ['Planning', 'Post-production'],
+        sections: [
+          { h: 'Overview',
+            body: ['***E Dun Fan De Shi’er*** is a food-themed micro variety show that explores the everyday lives of artists beyond their work. Centered around a shared meal after a day of filming, the show creates a relaxed setting for natural conversation, allowing artists to step away from their on-screen personas and reveal a more genuine and easygoing side of themselves.'],
+            imgs: [] },
+          { h: 'Creative Concept',
+            body: ['The project was designed to strengthen the sense of connection among EE-Media’s artists. I combined a set visit with a shared meal after work and introduced a relay mechanism: each artist leaves a task and a hidden recipe for the next guest, linking individual episodes into a continuous narrative.',
+                   'I also combined MBTI with food to create the EETI personality test, matching different personality types with five “food souls” — a lively hotpot, a delicate dessert, a playful snack, a laid-back drink, and a grounded staple food. Each food category reflects a distinct set of personality traits, turning personality analysis into a playful extension of the show’s food theme while highlighting each artist’s individuality.',
+                   '**MBTI + EE-Media + Food = EETI**'],
+            // EETI test set (7 screens): cover, question 1, then the five
+            // personality results — hotpot / dessert / snack / drink / staple.
+            imgs: ['doc_images/eeti_01.jpeg', 'doc_images/eeti_02.jpeg',
+                   'doc_images/eeti_03.jpeg', 'doc_images/eeti_04.jpeg',
+                   'doc_images/eeti_05.jpeg', 'doc_images/eeti_06.jpeg',
+                   'doc_images/eeti_07.jpeg'], horizontal: true },
+          { h: 'My Work · Content Planning',
+            body: ['For the first shoot, I drew inspiration from the local legend of the “Eight Immortals Crossing the Sea” in Penglai, Yantai, translating each immortal’s distinctive traits into game mechanics. For example, Cao Guojiu inspired a tongue-twister challenge, while Han Xiangzi inspired a lyrics-completion challenge. Completing these tasks allowed the artists to unlock local delicacies, integrating the game design with the local culture of the filming location.'],
+            imgs: imgRange(8, 11) },
+          { h: 'My Work · Post-production',
+            body: ['After the Yantai shoot, I was responsible for editing artist-focused special episodes featuring Su Xing, Sha Yiting, and Tizzy T. While maintaining a tight and engaging pace, I developed a consistent on-screen caption style to give the show a more cohesive visual identity.'],
+            imgs: imgRange(12, 15) }
+        ]
+      },
+      miyu: {
+        tag: 'Short Film', title: '《谜雨》', titleEn: 'Mi Yu', watchUrl: 'https://b23.tv/rPMaMfY',
+        sub: 'A suspense short set in a Dongguan factory in 2005',
+        accent: '#1A73E8', accentBg: '#E8F0FE',
+        cover: 'images/cover-miyu.jpg',
+        roles: ['Art Direction', 'Lighting'],
+        sections: [
+          { h: 'Overview',
+            body: ['***Mi Yu*** is a suspense short film set in a factory in Dongguan in 2005. Xu Ping arrives to investigate the death of her younger sister, Xu An, who was trafficked and later died. However, conflicting accounts from those who last saw Xu An leave the truth increasingly unclear. As the investigation unfolds, seemingly well-intentioned stories begin to reveal hidden motives and danger. With the help of police officer Yang Feng, Xu Ping gradually pieces together the truth behind her sister’s death.'],
+            imgs: [] },
+          { h: 'Creative Concept',
+            body: ['For the visual design, I wanted costumes, makeup, and lighting to actively contribute to character development and emotional storytelling. I designed each character’s look around their personality, social status, and living conditions, while using shifts between warm and cool lighting to reflect changes in their emotional state as the story unfolds.'],
+            imgs: [] },
+          { h: 'My Work · Art Direction',
+            body: ['For the three central female characters, I created distinct visual identities based on their personalities and circumstances. Xu An is innocent and unworldly, so I dressed her in a white knit top, a light grey jacket, and dark trousers, with subtly worn details reflecting her financial struggles. Her elder sister, Xu Ping, has a sharper and more fashion-conscious personality, reflected in a structured lightweight trench coat, a pale inner layer, and dark jeans. I also transformed a belt into a rose-shaped neck detail to give her look a distinctive touch. For Cheng Huanyu, I used bolder elements — white fur, leopard print, and denim — together with dark lipstick and sharply winged eyeliner to reinforce her strong, commanding presence.'],
+            imgs: imgRange(16, 21) },
+          { h: 'My Work · Lighting',
+            body: ['The lighting evolves with the emotional progression of the story. When Xu An first arrives at the factory, warm tones dominate, with a yellow glow reflecting her initial hope and innocence. As the story becomes more suspenseful and oppressive, the palette gradually shifts to cooler tones: blue conveys her unease and isolation after being harassed and rejected by her family, while purple intensifies the sense of danger as she becomes trapped in human trafficking.'],
+            imgs: imgRange(22, 27) }
+        ]
+      },
+      juzi: {
+        tag: 'Educational Short', title: '《橘子历险记》', titleEn: 'The Adventures of Tangerine', watchUrl: 'https://b23.tv/Vz41FYm',
+        sub: 'Nominated for Best Short at the Yueguang Cup',
+        accent: '#E65100', accentBg: '#FEF3E2',
+        cover: 'images/cover-juzi.jpg',
+        roles: ['Director', 'Screenwriter', 'Storyboarding', 'Post-production'],
+        sections: [
+          { h: 'Overview',
+            body: ['***The Adventures of Tangerine*** is a playful educational short film told through stop-motion animation. Through an anthropomorphic love story between a tangerine and a pomelo, the film playfully introduces the idea of citrus hybridisation. The story begins when a tangerine accidentally falls from a truck and falls in love with a pomelo growing on a tree. Despite their repeated attempts to reach each other, the two keep missing one another. After a series of unexpected turns and a long wait, their story takes a surprising turn — an orange is born by chance.'],
+            imgs: [] },
+          { h: 'Creative Concept',
+            body: ['The idea originated from a citrus family tree. Fascinated by the complex hybrid relationships among different citrus varieties, I wanted to transform one of them into a story that could make scientific knowledge easier to understand and remember. Since plant hybridisation is difficult to capture directly on camera, I chose stop-motion animation as the main medium and reimagined the hybrid relationship between a tangerine and a pomelo as an anthropomorphic love story. Through their attempts to reach each other, repeated missed encounters, and unexpected turns, the science of citrus hybridisation is naturally woven into the narrative.'],
+            imgs: imgRange(29, 29) },
+          { h: 'My Work · Storyboarding',
+            body: ['In pre-production, I structured the narrative around the relationship between the tangerine and the pomelo, using storyboards to plan character movement, positioning, and shot transitions. This allowed me to map out how the clay figures would move frame by frame and ensure that their actions formed a clear and coherent narrative.'],
+            imgs: imgRange(30, 34) },
+          { h: 'My Work · Post-production',
+            body: ['To expand the emotional expressiveness of the stop-motion characters, I added hand-drawn elements in post-production. I designed expressive lettering and facial expressions for the tangerine, pomelo, and orange across different emotional states, while incorporating hand-drawn animated details such as wind effects. These additions brought more personality to the characters and gave the film a lighter, more playful tone.'],
+            imgs: imgRange(35, 42) }
+        ]
+      },
+      changan: {
+        tag: 'Promotional Film', title: '《长安涌头正气行》', titleEn: 'Chang\u2019an Chongtou Zheng Qi Xing', watchUrl: 'https://b23.tv/NIeRO5m',
+        sub: 'Third Prize, 2025 Guangdong “Colorful Countryside” Program',
+        accent: '#2E7D32', accentBg: '#E8F5E9',
+        cover: 'images/cover-changan.jpg',
+        roles: ['Planning', 'Post-production'],
+        sections: [
+          { h: 'Overview',
+            body: ['***Chang’an Chongtou Zheng Qi Xing*** is a cultural promotional short film that follows a host and Chongtou’s mascots, Wen Zai and Wen Nan, as they explore key sites around the community. Through a series of themed mini-tasks, they collect “Righteousness Points” in a game-like journey. Along the way, the film offers viewers an engaging introduction to Chongtou’s local culture and everyday life, while bringing to life the spirit of Wen Tianxiang’s Song of Righteousness.'],
+            imgs: [] },
+          { h: 'Creative Concept',
+            body: ['During field research, I discovered the local Wen Tianxiang Memorial Hall, where the complete Song of Righteousness is inscribed on the walls. This became the starting point for the film’s creative concept. I took “righteousness” — the central spirit of the poem — as the narrative thread, connecting it with Chongtou’s local culture through a playful, quest-based format. By turning cultural exploration into a game-like journey, I aimed to move away from the seriousness of conventional promotional films and create a more engaging and entertaining viewing experience.'],
+            imgs: imgRange(43, 43) },
+          { h: 'My Work · Planning',
+            body: ['I developed the film’s narrative framework around the spirit of Song of Righteousness and designed a quest-based structure centred on collecting “Righteousness Points.” Each location in Chongtou was paired with a different righteousness-themed task and story scenario, transforming individual landmarks into a connected story route and a cohesive narrative journey.'],
+            imgs: [] },
+          { h: 'My Work · Post-production',
+            body: ['In post-production, I structured the edit around the host and the two mascots’ journey, using the accumulation of “Righteousness Points” as a narrative thread and motion graphics to connect each stage of the film.', 'Since the mascots wore full-head costumes and could not speak during filming, I cast a boy and a girl as voice actors for Wen Zai and Wen Nan. For the elderly members of the ancestral hall, whose on-camera appearances had to be kept brief for health reasons, I used AI-generated cartoon representations alongside the live-action footage to help convey their oral histories. AI-generated historical imagery was also incorporated to visualise the stories they shared, adding variety and expressiveness to the film’s visual storytelling.'],
+            imgs: imgRange(44, 46) }
+        ]
+      }
+    };
+
+    var ORDER = ['efan', 'miyu', 'juzi', 'changan'];
+
+    var modal   = document.getElementById('projectModal');
+    var sheet   = modal.querySelector('.pm-sheet');
+    var elTag   = document.getElementById('pmTag');
+    var elTitle = document.getElementById('pmTitle');
+    var elTitleEn = document.getElementById('pmTitleEn');
+    var elSub   = document.getElementById('pmSub');
+    var elRoles = document.getElementById('pmRoles');
+    var elWatch = document.getElementById('pmWatch');
+    var elBody  = document.getElementById('pmBody');
+    var elCount = document.getElementById('pmCount');
+    var current = 0;
+
+    // Renders paragraph strings into `container`, supporting inline marks:
+//   **bold**         → <strong>
+//   ***bold-italic*** → <em><strong>…</strong></em>
+// Asterisk marks are tokenized by a single regex pass so nested markers cannot
+// confuse the splitter (*** must match before **).
+function fillParas(container, arr) {
+      (arr || []).forEach(function (para) {
+        var pp = document.createElement('p');
+        var re = /(\*\*\*[\s\S]+?\*\*\*|\*\*[\s\S]+?\*\*)/g;
+        var last = 0, m;
+        while ((m = re.exec(para)) !== null) {
+          if (m.index > last) {
+            pp.appendChild(document.createTextNode(para.slice(last, m.index)));
+          }
+          var tok = m[0];
+          if (tok.indexOf('***') === 0) {
+            var em = document.createElement('em');
+            var st = document.createElement('strong');
+            st.textContent = tok.slice(3, -3);
+            em.appendChild(st);
+            pp.appendChild(em);
+          } else {
+            var st2 = document.createElement('strong');
+            st2.textContent = tok.slice(2, -2);
+            pp.appendChild(st2);
+          }
+          last = re.lastIndex;
+        }
+        if (last < para.length) {
+          pp.appendChild(document.createTextNode(para.slice(last)));
+        }
+        container.appendChild(pp);
+      });
+    }
+
+    function render(key) {
+      var p = PROJECTS[key];
+      sheet.style.setProperty('--pm-accent', p.accent);
+      sheet.style.setProperty('--pm-accent-bg', p.accentBg);
+      elTag.textContent = p.tag;
+      elTitle.textContent = p.title;
+      elTitleEn.textContent = p.titleEn || '';
+      elSub.textContent = p.sub || '';
+      elRoles.innerHTML = '';
+      p.roles.forEach(function (r) {
+        var s = document.createElement('span');
+        s.className = 'pm-role';
+        s.textContent = r;
+        elRoles.appendChild(s);
+      });
+      // Optional watch-link pill (rendered under .pm-roles, above the dashed border)
+      elWatch.innerHTML = '';
+      if (p.watchUrl) {
+        var a = document.createElement('a');
+        a.className = 'pm-watch';
+        a.href = p.watchUrl;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.textContent = 'Click here to watch the video';
+        elWatch.appendChild(a);
+      }
+      elBody.innerHTML = '';
+      p.sections.forEach(function (sec) {
+        var wrap = document.createElement('section');
+        wrap.className = 'pm-section';
+        var h = document.createElement('h3');
+        h.className = 'pm-section-h';
+        h.textContent = sec.h;
+        wrap.appendChild(h);
+
+        var isIntro = (sec.h === 'Overview') && !!p.cover;
+
+        if (isIntro) {
+          // Intro block: paragraph text on top, project cover underneath
+          var intro = document.createElement('div');
+          intro.className = 'pm-intro';
+          var txt = document.createElement('div');
+          txt.className = 'pm-text';
+          fillParas(txt, sec.body);
+          intro.appendChild(txt);
+          var coverBox = document.createElement('div');
+          coverBox.className = 'pm-cover';
+          var cov = document.createElement('img');
+          cov.src = p.cover;
+          cov.alt = p.title + ' — cover';
+          cov.loading = 'lazy';
+          coverBox.appendChild(cov);
+          intro.appendChild(coverBox);
+          wrap.appendChild(intro);
+        } else {
+          if (sec.body && sec.body.length) {
+            var txt2 = document.createElement('div');
+            txt2.className = 'pm-text';
+            fillParas(txt2, sec.body);
+            wrap.appendChild(txt2);
+          }
+          if (sec.imgs && sec.imgs.length) {
+            // 「创作构思」与「我的工作」分节统一使用横向不裁切、可滑动画廊
+            var isHorizontal = sec.horizontal === true
+              || /^(Creative Concept|My Work)/.test(sec.h || '');
+            var galWrap = document.createElement('div');
+            galWrap.className = 'pm-gallery-wrap';
+            var gal = document.createElement('div');
+            gal.className = 'pm-gallery' + (isHorizontal ? ' pm-gallery--hscroll' : '');
+            sec.imgs.forEach(function (src) {
+              var im = document.createElement('img');
+              im.src = src;
+              im.alt = p.title + ' ' + sec.h;
+              im.loading = 'lazy';
+              gal.appendChild(im);
+            });
+            galWrap.appendChild(gal);
+
+            if (isHorizontal) {
+              var btnPrev = document.createElement('button');
+              btnPrev.className = 'pm-scroll-btn pm-scroll-prev';
+              btnPrev.innerHTML = '&#8249;';
+              btnPrev.setAttribute('aria-label', 'View previous image');
+              var btnNext = document.createElement('button');
+              btnNext.className = 'pm-scroll-btn pm-scroll-next';
+              btnNext.innerHTML = '&#8250;';
+              btnNext.setAttribute('aria-label', 'View next image');
+              galWrap.appendChild(btnPrev);
+              galWrap.appendChild(btnNext);
+              var hscroll = function (delta) {
+                gal.scrollBy({ left: delta, behavior: 'smooth' });
+              };
+              btnPrev.addEventListener('click', function () { hscroll(-340); });
+              btnNext.addEventListener('click', function () { hscroll(340); });
+              var updateArrows = function () {
+                var overflow = gal.scrollWidth > gal.clientWidth + 2;
+                btnPrev.style.display = overflow ? '' : 'none';
+                btnNext.style.display = overflow ? '' : 'none';
+              };
+              gal.querySelectorAll('img').forEach(function (im) {
+                im.addEventListener('load', updateArrows);
+              });
+              requestAnimationFrame(updateArrows);
+            }
+            wrap.appendChild(galWrap);
+          }
+        }
+        elBody.appendChild(wrap);
+      });
+      elBody.parentNode.scrollTop = 0;
+      elCount.textContent = (current + 1) + ' / ' + ORDER.length;
+    }
+
+    function openProject(key) {
+      current = ORDER.indexOf(key);
+      if (current < 0) current = 0;
+      render(key);
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    // Card click → open; hover still drives the character expression
+    document.querySelectorAll('.work-card').forEach(function (card) {
+      // "查看详情" hint
+      var more = document.createElement('div');
+      more.className = 'card-more';
+      more.textContent = 'Click for project details';
+      card.appendChild(more);
+      card.addEventListener('click', function () {
+        var key = card.getAttribute('data-project');
+        if (key) openProject(key);
+      });
+    });
+
+    modal.querySelectorAll('[data-pm-close]').forEach(function (b) {
+      b.addEventListener('click', closeModal);
+    });
+    document.getElementById('pmPrev').addEventListener('click', function () {
+      current = (current - 1 + ORDER.length) % ORDER.length;
+      render(ORDER[current]);
+    });
+    document.getElementById('pmNext').addEventListener('click', function () {
+      current = (current + 1) % ORDER.length;
+      render(ORDER[current]);
+    });
+
+        // --- Image lightbox (click a gallery image to enlarge; click it again to zoom in) ---
+    var lb = document.createElement('div');
+    lb.className = 'pm-lightbox';
+    var lbStage = document.createElement('div');
+    lbStage.className = 'pm-lightbox-stage';
+    var lbCloseBtn = document.createElement('button');
+    lbCloseBtn.className = 'pm-lightbox-close';
+    lbCloseBtn.innerHTML = '&#215;';
+    lbCloseBtn.setAttribute('aria-label', 'Close image');
+    var lbHint = document.createElement('div');
+    lbHint.className = 'pm-lightbox-hint';
+    var lbImg = document.createElement('img');
+    lbImg.alt = 'Enlarged image';
+    lbImg.draggable = false;
+    lbStage.appendChild(lbImg);
+    lb.appendChild(lbStage);
+    lb.appendChild(lbCloseBtn);
+    lb.appendChild(lbHint);
+    document.body.appendChild(lb);
+
+    var lbZoomed = false;
+    var lbFit = 1;
+    var lbDragMovedAt = 0;
+
+    // Fit the picture to the viewport. Small sources are scaled UP too, so a
+    // low-res screenshot uses the whole screen instead of a postage stamp.
+    function lbFitToScreen() {
+      lbZoomed = false;
+      var availW = Math.max(lbStage.clientWidth - 80, 120);
+      var availH = Math.max(lbStage.clientHeight - 80, 120);
+      var nw = lbImg.naturalWidth || 1;
+      var nh = lbImg.naturalHeight || 1;
+      lbFit = Math.min(availW / nw, availH / nh);
+      if (lbFit > 2.4) lbFit = 2.4;                  // don't smear tiny sources
+      lbImg.style.maxWidth = 'none';
+      lbImg.style.maxHeight = 'none';
+      lbImg.style.width = Math.round(nw * lbFit) + 'px';
+      lbImg.style.height = Math.round(nh * lbFit) + 'px';
+      lbImg.style.cursor = 'zoom-in';
+      lbImg.style.touchAction = '';
+      lb.classList.remove('is-zoomed');
+      lbHint.textContent = 'Click the image to zoom in · Esc or × to close';
+      lbStage.scrollTop = 0;
+      lbStage.scrollLeft = 0;
+    }
+
+    // Second click: magnify on top of the fitted view (about 1:1 pixels for big
+    // sources, up to 2.5x for small ones) and let the picture be dragged around.
+    function lbZoomIn() {
+      var scale = Math.min(lbFit * 2, 2.5);
+      if (scale <= lbFit) return;
+      lbZoomed = true;
+      lbImg.style.maxWidth = 'none';
+      lbImg.style.maxHeight = 'none';
+      lbImg.style.width = Math.round(lbImg.naturalWidth * scale) + 'px';
+      lbImg.style.height = Math.round(lbImg.naturalHeight * scale) + 'px';
+      lbImg.style.cursor = 'zoom-out';
+      lbImg.style.touchAction = 'none';
+      lb.classList.add('is-zoomed');
+      lbHint.textContent = 'Drag to pan · click the image to fit';
+    }
+
+    function openLightbox(src) {
+      lbImg.style.width = '';
+      lbImg.style.height = '';
+      lbImg.src = src;
+      lb.classList.add('open');
+      if (lbImg.complete && lbImg.naturalWidth) lbFitToScreen();
+      else lbImg.onload = lbFitToScreen;
+    }
+    function closeLightbox() {
+      lb.classList.remove('open');
+      // 弹层还开着 → body 仍锁定；弹层也关了 → 恢复滚动
+      if (!modal.classList.contains('open')) document.body.style.overflow = '';
+    }
+
+    // Drag to pan while zoomed (pointer events cover mouse and touch).
+    var lbDrag = null;
+    lbImg.addEventListener('pointerdown', function (e) {
+      if (!lbZoomed) return;
+      lbDrag = { x: e.clientX, y: e.clientY, l: lbStage.scrollLeft, t: lbStage.scrollTop };
+      lbImg.style.cursor = 'grabbing';
+      if (lbImg.setPointerCapture) { try { lbImg.setPointerCapture(e.pointerId); } catch (err) {} }
+      e.preventDefault();
+    });
+    lbImg.addEventListener('pointermove', function (e) {
+      if (!lbDrag) return;
+      var dx = e.clientX - lbDrag.x;
+      var dy = e.clientY - lbDrag.y;
+      if (Math.abs(dx) + Math.abs(dy) > 4) lbDragMovedAt = Date.now();
+      lbStage.scrollLeft = lbDrag.l - dx;
+      lbStage.scrollTop = lbDrag.t - dy;
+    });
+    ['pointerup', 'pointercancel'].forEach(function (ev) {
+      lbImg.addEventListener(ev, function () {
+        if (!lbDrag) return;
+        lbDrag = null;
+        lbImg.style.cursor = lbZoomed ? 'zoom-out' : 'zoom-in';
+      });
+    });
+
+    lbImg.addEventListener('click', function () {
+      if (Date.now() - lbDragMovedAt < 250) return;    // that was a drag, not a click
+      if (lbZoomed) lbFitToScreen(); else lbZoomIn();
+    });
+
+    window.addEventListener('resize', function () {
+      if (!lb.classList.contains('open') || !lbImg.naturalWidth) return;
+      var wasZoomed = lbZoomed;
+      lbFitToScreen();
+      if (wasZoomed) lbZoomIn();
+    });
+
+    // Ways out of the lightbox: the × button, a click on the backdrop, or Esc.
+    lbCloseBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeLightbox();
+    });
+    // The scrolling stage covers the whole overlay, so clicking "the background"
+    // actually lands on the stage — treat both it and the overlay as backdrop.
+    function lbBackdropClick(e) {
+      if (e.target !== lb && e.target !== lbStage) return;   // clicking the picture is not a backdrop click
+      if (Date.now() - lbDragMovedAt < 250) return;          // that was the tail of a drag
+      closeLightbox();
+    }
+    lb.addEventListener('click', lbBackdropClick);
+    lbStage.addEventListener('click', lbBackdropClick);
+    // 事件代理：点击弹层内的「创作构思/我的工作」横滑图时打开大图
+    modal.addEventListener('click', function (e) {
+      var t = e.target;
+      if (t && t.tagName === 'IMG' && t.closest('.pm-gallery--hscroll')) {
+        openLightbox(t.src);
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      // 优先关 lightbox
+      if (lb.classList.contains('open')) {
+        if (e.key === 'Escape') closeLightbox();
+        return;
+      }
+      if (!modal.classList.contains('open')) return;
+      if (e.key === 'Escape') closeModal();
+      else if (e.key === 'ArrowLeft') { current = (current - 1 + ORDER.length) % ORDER.length; render(ORDER[current]); }
+      else if (e.key === 'ArrowRight') { current = (current + 1) % ORDER.length; render(ORDER[current]); }
+    });
+  })();
+  </script>
+
+  <!-- Third screen: reveal on approach + copy-email action -->
+  <script>
+  (function () {
+    var section = document.querySelector('.contact-section');
+
+    // Reveal the two panels once the page is actually in view.
+    if (section) {
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              section.classList.add('in');
+              io.disconnect();
+            }
+          });
+        }, { threshold: 0.3 });
+        io.observe(section);
+      } else {
+        section.classList.add('in');
+      }
+    }
+
+    // Copy the address to the clipboard, then confirm in place.
+    function copyText(text, done) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () { legacyCopy(text, done); });
+        return;
+      }
+      legacyCopy(text, done);
+    }
+
+    function legacyCopy(text, done) {
+      var field = document.createElement('textarea');
+      field.value = text;
+      field.setAttribute('readonly', '');
+      field.style.position = 'fixed';
+      field.style.top = '-1000px';
+      document.body.appendChild(field);
+      field.select();
+      try { document.execCommand('copy'); done(); } catch (err) { /* nothing to confirm */ }
+      document.body.removeChild(field);
+    }
+
+    var copyBtn = document.getElementById('copyMail');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', function () {
+        var address = copyBtn.getAttribute('data-mail') || '';
+        copyText(address, function () {
+          if (copyBtn.dataset.busy) return;
+          copyBtn.dataset.busy = '1';
+          var original = copyBtn.textContent;
+          copyBtn.textContent = 'Copied ✓';
+          copyBtn.classList.add('copied');
+          setTimeout(function () {
+            copyBtn.textContent = original;
+            copyBtn.classList.remove('copied');
+            delete copyBtn.dataset.busy;
+          }, 1600);
+        });
+      });
+    }
+  })();
+  </script>
+
+  <script>
+  // Corner capsule CTAs — reveal only the one whose section is under the
+  // centre of the viewport (page 2 = 联系我 ↓, page 3 = 关于我 ↑).
+  (function () {
+    try {
+      var ctas = [].slice.call(document.querySelectorAll('.contact-badge'));
+      if (!ctas.length) return;
+      function update() {
+        var mid = window.innerHeight / 2;
+        ctas.forEach(function (el) {
+          var sec = el.closest('section');
+          if (!sec) return;
+          var r = sec.getBoundingClientRect();
+          el.classList.toggle('is-on', r.top <= mid && r.bottom >= mid);
+        });
+      }
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      window.addEventListener('load', update);
+      update();
+    } catch (e) { /* never let this break the page */ }
+  })();
+  </script>
+
+  <script>
+  // ===== Click spark — vanilla 2D-canvas port of React Bits <ClickSpark/> =====
+  // Radial ink sparks burst from every click (works for taps on touch too).
+  (function () {
+    'use strict';
+
+    // Site convention: every motion effect needs a reduced-motion off-switch.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var canvas = document.getElementById('clickSpark');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Ink lines match the site's sticker/ink language and stay visible on both
+    // the lavender (#C8CBE0) and cream (#FFF8F0) backgrounds.
+    var CFG = {
+      sparkColor: '#1a1a2e',
+      sparkSize: 17,      // initial length of each spark line (px)
+      sparkRadius: 15,    // how far sparks travel from the click centre (px)
+      sparkCount: 7,      // spark lines per click
+      duration: 400,      // animation length (ms)
+      lineWidth: 2,
+      maxDpr: 2
+    };
+
+    var sparks = [];
+    var raf = 0;
+    var running = false;
+
+    function easeOut(t) { return t * (2 - t); }
+
+    function resize() {
+      var dpr = Math.min(window.devicePixelRatio || 1, CFG.maxDpr);
+      // clientWidth/Height exclude the scrollbar and match the canvas' CSS box.
+      var w = Math.max(document.documentElement.clientWidth || window.innerWidth, 1);
+      var h = Math.max(document.documentElement.clientHeight || window.innerHeight, 1);
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function draw(now) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.lineCap = 'round';
+      ctx.lineWidth = CFG.lineWidth;
+      ctx.strokeStyle = CFG.sparkColor;
+
+      var alive = [];
+      for (var i = 0; i < sparks.length; i++) {
+        var spark = sparks[i];
+        var elapsed = now - spark.startTime;
+        if (elapsed >= CFG.duration) continue;
+
+        var eased = easeOut(elapsed / CFG.duration);
+        var distance = eased * CFG.sparkRadius;
+        var lineLength = CFG.sparkSize * (1 - eased);
+
+        var x1 = spark.x + distance * Math.cos(spark.angle);
+        var y1 = spark.y + distance * Math.sin(spark.angle);
+        var x2 = spark.x + (distance + lineLength) * Math.cos(spark.angle);
+        var y2 = spark.y + (distance + lineLength) * Math.sin(spark.angle);
+
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+
+        alive.push(spark);
+      }
+      sparks = alive;
+
+      if (sparks.length) {
+        raf = requestAnimationFrame(draw);
+      } else {
+        // Idle: no loop, no clearRect — zero cost between clicks.
+        running = false;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+    }
+
+    function onClick(e) {
+      var now = performance.now();
+      for (var i = 0; i < CFG.sparkCount; i++) {
+        sparks.push({
+          x: e.clientX,
+          y: e.clientY,
+          angle: (2 * Math.PI * i) / CFG.sparkCount,
+          startTime: now
+        });
+      }
+      if (!running) {
+        running = true;
+        raf = requestAnimationFrame(draw);
+      }
+    }
+
+    window.addEventListener('resize', resize);
+    // Capture phase: still see clicks even if a handler stops propagation.
+    window.addEventListener('click', onClick, true);
+    resize();
+  })();
+  </script>
+
+</body></html>
